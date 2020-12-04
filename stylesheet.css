@@ -1,0 +1,22 @@
+form {
+  margin: calc(4vw + 50px);
+}
+
+form h4, form h6 {
+  margin-top: 2vw;
+  margin-bottom: 2vw;
+  text-align: center;
+}
+
+.form-item {
+  text-align: center;
+}
+
+form h4 {
+  font-weight: 200;
+}
+
+form h4 span {
+  font-weight: 600;
+  text-decoration: underline;
+}

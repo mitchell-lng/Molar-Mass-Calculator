@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Molar Mass Calculator</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://gitcdn.link/repo/mitchell-lng/bpCSS/master/stylesheet.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="stylesheet.css">
+  </head>
+  <body>
+
+    <header class="header-right" style="background-image: url('https://www.nist.gov/sites/default/files/images/2019/02/13/18jila004_ye_degenerate_gas_2018_burrows_alt.jpg')">
+        <div>
+          <h1>Molar Mass Calculator</h1>
+          <p>Can Calculate molar mass with the given Chemical Formula</p>
+        </div>
+    </header>
+
+    <section>
+      <form class="" action="index.html" id="form">
+        <div class="form-item">
+          <label for="chemFormula">Chemical Formula</label>
+          <input type="text" name="chemFormula" value="" id="chemFormula">
+        </div>
+        <h6><i><b>**NOTE: Write in the 1's**</b></i></h6>
+        <input type="submit" value="Submit">
+        <h4>Your Molar Mass is: <span id="output"></span></h4>
+      </form>
+    </section>
+
+
+    <script>
+      var elements = {};
+
+      var letters = "abcdefghijklmnopqrstuvwxyz";
+      var jsonURL = "https://raw.githubusercontent.com/Bowserinator/Periodic-Table-JSON/master/PeriodicTableJSON.json";
+
+      $(document).ready(function() {
+        $.getJSON( jsonURL, {
+          format: "json"
+        }).done(function( data ) {
+          for (let element in data.elements) {
+            elements[data.elements[element].symbol.toLowerCase()] = data.elements[element].atomic_mass + " * ";
+          }
+        });
+
+        $('form').submit(function(e) {
+          // stops page from reloading
+          e.preventDefault();
+
+          // gets input from user
+          var input = $('#chemFormula').val().toLowerCase().trim();
+          var output = "";
+
+          // creates array out of string provided by user
+          var re = /(\d+)/;
+          var ar = input.split(re);
+
+          // Puts together all letters that are next to one another
+          for (var i = 0; i < ar.length; i++) {
+            if (letters.includes(ar[i]) && letters.includes(ar[i + 1])) {
+              ar[i] += ar[i+1];
+              letters.splice(ar[i + 1], 1);
+            }
+          }
+
+          ar.pop();
+
+          // Swap Out Letter with Avg Atomic Mass
+          for (var i = 0; i < ar.length / 2; i++) {
+            var x = i * 2;
+            output += eval(elements[ar[x]] + ar[x + 1]) + " + ";
+          }
+
+          output += "0";
+          output = eval(output);
+          // Puts output into the page
+          $('#output').text(output);
+        });
+      });
+    </script>
+
+    <footer>
+      <div class="">
+        <h4>Happy Calculating😁</h4>
+      </div>
+    </footer>
+
+  </body>
+</html>
