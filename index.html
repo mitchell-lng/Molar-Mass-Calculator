@@ -85,7 +85,7 @@
           output += "0";
           output = eval(output);
           // Puts output into the page
-          $('#mmOutput').text(output);
+          $('#mmOutput').text(output + " g/mol");
 
           var mass = $("#mass").val().trim();
           var los = $("#los").val().trim();
@@ -95,7 +95,7 @@
             var moles = mass / output;
             var molarity = moles / los;
 
-            $('#mOutput').text(molarity);
+            $('#mOutput').text(Math.round((molarity + Number.EPSILON) * 100000) / 100000 + " M");
           }
         });
       });
