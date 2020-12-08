@@ -12,20 +12,29 @@
 
     <header class="header-right" style="background-image: url('https://www.nist.gov/sites/default/files/images/2019/02/13/18jila004_ye_degenerate_gas_2018_burrows_alt.jpg')">
         <div>
-          <h1>Molar Mass Calculator</h1>
-          <p>Can Calculate molar mass with the given Chemical Formula</p>
+          <h1>Molar Mass/Molarity Calculator</h1>
+          <p>Can Calculate both just purely the molar mass or also the molarity</p>
         </div>
     </header>
 
     <section>
       <form class="" action="index.html" id="form">
         <div class="form-item">
-          <label for="chemFormula">Chemical Formula</label>
-          <input type="text" name="chemFormula" value="" id="chemFormula">
+          <label for="chemFormula">Chemical Formula*</label>
+          <input type="text" name="chemFormula" value="" id="chemFormula" required>
+        </div>
+        <div class="form-item">
+          <label for="chemFormula">Mass</label>
+          <input type="text" name="chemFormula" value="" id="mass">
+        </div>
+        <div class="form-item">
+          <label for="chemFormula">Liters Of Solute (L)</label>
+          <input type="text" name="chemFormula" value="" id="los">
         </div>
         <h6><i><b>**NOTE: Write in the 1's**</b></i></h6>
         <input type="submit" value="Submit">
-        <h4>Your Molar Mass is: <span id="output"></span></h4>
+        <h4>Your Molar Mass is: <span id="mmOutput"></span></h4>
+        <h4>Your Molarity is: <span id="mOutput"></span></h4>
       </form>
     </section>
 
@@ -76,7 +85,18 @@
           output += "0";
           output = eval(output);
           // Puts output into the page
-          $('#output').text(output);
+          $('#mmOutput').text(output);
+
+          var mass = $("#mass").val().trim();
+          var los = $("#los").val().trim();
+          if (mass != "" && los != "") {
+
+            // Calculations
+            var moles = mass / output;
+            var molarity = moles / los;
+
+            $('#mOutput').text(molarity);
+          }
         });
       });
     </script>
